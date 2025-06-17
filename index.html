@@ -1,274 +1,351 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfólio de Programador - Lucas Rocha</title>
+    <meta name="description" content="Portfólio de Desenvolvedor de Software." />
+    <link rel="shortcut icon" type="image/x-icon" href="https://placehold.co/16x16/2563EB/FFFFFF?text=LR" /> <!-- Ícone placeholder -->
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
-// Certifique-se de que o Tailwind CSS esteja configurado no seu ambiente de desenvolvimento React.
-// Para ícones, usaremos lucide-react, que deve ser instalado: npm install lucide-react
-import { BookOpen, Leaf, TreeDeciduous, Map, MessageCircle, ScrollText, Mail, Feather } from 'lucide-react';
+    <!-- Scripts para React, ReactDOM, Babel e Tailwind CSS -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    
+    <!-- Configuração do Tailwind CSS e importação da fonte Inter -->
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { inter: ["Inter", "sans-serif"] } } } };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Importação do Font Awesome para ícones, Lucide React será importado no JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-// Componente principal da aplicação
-const App = () => {
-  return (
-    <div className="min-h-screen bg-stone-100 font-inter antialiased">
-      {/* Barra de Navegação */}
-      <nav className="bg-green-900 shadow-lg p-4 sticky top-0 z-50">
-        <div className="container mx-auto flex justify-between items-center">
-          {/* Título da Biblioteca */}
-          <a href="#" className="text-2xl font-bold text-yellow-300">Biblioteca Druídica</a>
-          {/* Links de Navegação */}
-          <div className="space-x-4 flex">
-            <a href="#inicio" className="text-white hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300">Clareira Inicial</a>
-            <a href="#sobre" className="text-white hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300">Raízes do Conhecimento</a>
-            <a href="#servicos" className="text-white hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300">Caminhos da Sabedoria</a>
-            <a href="#portfolio" className="text-white hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300">Tomos Antigos</a>
-            <a href="#contato" className="text-white hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300">Sussurros à Guardiã</a>
-          </div>
-        </div>
-      </nav>
+    <style>
+        /* Estilos adicionais globais ou para o corpo da página, se necessário */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div> <!-- Onde o seu aplicativo React será montado -->
 
-      {/* Seção de Início (Hero) */}
-      <section id="inicio" className="relative bg-gradient-to-r from-green-800 to-green-600 text-white py-20 md:py-32 flex items-center justify-center min-h-screen-70">
-        <div className="container mx-auto text-center px-4">
-          <div className="mb-8">
-            {/* Imagem de perfil temática */}
-            <img
-              src="https://placehold.co/160x160/228B22/FFFFFF?text=Árvore+Sábia"
-              alt="Árvore Sábia"
-              className="rounded-full w-32 h-32 md:w-40 md:h-40 mx-auto border-4 border-yellow-300 shadow-lg object-cover"
-            />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fadeInUp">
-            Bem-vindos à <span className="text-yellow-300">Biblioteca Druídica</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 font-light animate-fadeInUp delay-200">
-            <span className="font-bold">GUARDIÃ DO CONHECIMENTO ANTIGO</span> | <span className="font-bold">Cronista da Natureza</span>, <span className="font-bold">Preservadora de Saberes Ancestrais</span> e <span className="font-bold">Conectora de Mundos</span>
-          </p>
-          <a
-            href="#contato"
-            className="inline-flex items-center px-8 py-3 bg-yellow-300 text-green-900 font-bold rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 animate-bounceIn"
-          >
-            Sussurre à Guardiã <BookOpen className="ml-2" size={20} />
-          </a>
-        </div>
-      </section>
+    <script type="text/babel">
+        // Importando ícones Lucide React diretamente, pois não há um sistema de módulos comum aqui
+        // É necessário que 'lucide-react' seja acessível globalmente, ou que os SVGs dos ícones sejam embutidos
+        // Para simplificar neste contexto, vamos embutir os SVGs para simular os ícones
+        // ATENÇÃO: Em uma aplicação React real com build, você importaria normalmente.
+        const Briefcase = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><line x1="2" x2="22" y1="12" y2="12"/></svg>
+        );
+        const User = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        );
+        const Mail = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        );
+        const Code = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        );
+        const Laptop = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M20 18H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2z"/><line x1="2" x2="22" y1="18" y2="18"/></svg>
+        );
+        const Smartphone = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        );
+        const Bug = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M8 2h8v20H8z"/><path d="M12 2v20"/><path d="M22 6L16 2v4l6 4L16 14v4l6-4L16 22"/><path d="M2 6l6-4v4L2 10l6 4v4l-6-4L8 22"/></svg>
+        );
+        const GitFork = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v.7A4.3 4.3 0 0 1 13.7 14h-1.4A4.3 4.3 0 0 1 8 9.7V9"/><path d="M12 15V6"/></svg>
+        );
+        const Server = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6" y1="6" y2="6"/><line x1="10" x2="10" y1="6" y2="6"/><line x1="14" x2="14" y1="6" y2="6"/><line x1="18" x2="18" y1="6" y2="6"/><line x1="6" x2="6" y1="18" y2="18"/><line x1="10" x2="10" y1="18" y2="18"/><line x1="14" x2="14" y1="18" y2="18"/><line x1="18" x2="18" y1="18" y2="18"/></svg>
+        );
+        const Database = ({ size = 24, color = "currentColor", className = "" }) => (
+          <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12A9 3 0 0 0 21 12"/><path d="M3 19A9 3 0 0 0 21 19"/></svg>
+        );
 
-      {/* Seção Sobre a Biblioteca */}
-      <section id="sobre" className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-center md:text-left">
-            <h2 className="text-4xl font-bold text-gray-800 mb-6 flex items-center justify-center md:justify-start">
-              <Leaf className="mr-3 text-green-600" size={36} /> As Raízes do Conhecimento
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              Nascida da brisa que sussurra entre as árvores centenárias e da sabedoria que brota da terra, a <span className="font-bold">Biblioteca Druídica</span> é um santuário de <span className="font-bold">conhecimentos ancestrais</span>. Aqui, o saber não está apenas em páginas, mas nas folhas que caem, nas águas que fluem e no silêncio dos montes. Nos dedicamos a <span className="font-bold">preservar a lore esquecida</span>, os <span className="font-bold">cantos dos elementais</span> e as <span className="font-bold">histórias dos antigos guardiões</span>.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Minha jornada como <span className="font-bold">cronista da natureza</span> e <span className="font-bold">preservadora de saberes</span> começou nos vales encobertos pela névoa, onde aprendi a decifrar os segredos da flora e da fauna, e a ouvir os <span className="font-bold">sussurros do éter</span>. A cada tomo transcrito, a cada erva estudada, a cada conto registrado, a Biblioteca cresce, enriquecendo aqueles que buscam a <span className="font-bold">conexão com o mundo natural e o divino</span>.
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Hoje, com a benção dos antigos espíritos, continuo a tecer as <span className="font-bold">narrativas da terra</span> e do <span className="font-bold">cosmos</span>, oferecendo um refúgio para todos que desejam <span className="font-bold">entender os ritmos da vida</span>, encontrar <span className="font-bold">orientação nas estrelas</span> e desvendar os <span className="font-bold">mistérios da magia natural</span>. Que a luz da sabedoria ilumine seu caminho!
-            </p>
-          </div>
-          <div className="flex justify-center items-center">
-            {/* Gráfico ou Imagem de Destaque para Sobre a Biblioteca */}
-            <div className="bg-green-100 p-8 rounded-lg shadow-xl w-full max-w-md text-center">
-              <Leaf className="mx-auto text-green-600 mb-4" size={64} />
-              <h3 className="text-2xl font-semibold text-green-800 mb-3">A Essência da Biblioteca</h3>
-              <p className="text-gray-700">
-                <span className="font-bold">Santuário de saberes ancestrais, conexão com a natureza e guardiã dos mistérios do universo.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Seção de Caminhos da Sabedoria (Serviços) */}
-      <section id="servicos" className="py-16 md:py-24 bg-stone-100">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-gray-800 mb-12 flex items-center justify-center">
-            <TreeDeciduous className="mr-3 text-green-600" size={36} /> Caminhos da Sabedoria
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Cartão de Serviço 1: Transcrição de Tomos Antigos */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-              <BookOpen className="text-amber-700 mb-4 mx-auto" size={48} />
-              <h3 className="text-2xl font-semibold text-gray-800 mb-3">Transcrição de Tomos Antigos</h3>
-              <p className="text-gray-600">
-                Decifração e registro de <span className="font-bold">antigos escritos druídicos</span>, garantindo a permanência da sabedoria.
-              </p>
-            </div>
-            {/* Cartão de Serviço 2: Preservação da Memória Verde */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-              <Feather className="text-green-700 mb-4 mx-auto" size={48} />
-              <h3 className="text-2xl font-semibold text-gray-800 mb-3">Preservação da Memória Verde</h3>
-              <p className="text-gray-600">
-                Registro e catalogação de <span className="font-bold">conhecimentos sobre plantas, animais e elementos naturais</span>.
-              </p>
-            </div>
-            {/* Cartão de Serviço 3: Cartografia dos Reinos Naturais */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-              <Map className="text-stone-700 mb-4 mx-auto" size={48} />
-              <h3 className="text-2xl font-semibold text-gray-800 mb-3">Cartografia dos Reinos Naturais</h3>
-              <p className="text-gray-600">
-                Criação de <span className="font-bold">mapas e guias</span> para locais sagrados e trilhas de energia da natureza.
-              </p>
-            </div>
-            {/* Cartão de Serviço 4: Sussurros da Floresta */}
-            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
-              <MessageCircle className="text-blue-600 mb-4 mx-auto" size={48} />
-              <h3 className="text-2xl font-semibold text-gray-800 mb-3">Sussurros da Floresta</h3>
-              <p className="text-gray-600">
-                Compartilhamento de <span className="font-bold">contos, lendas e ensinamentos</span> através de narrativas envolventes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+        // Componente principal da aplicação
+        const App = () => {
+          return (
+            <div className="min-h-screen bg-gray-50 font-inter antialiased">
+              {/* Barra de Navegação */}
+              <nav className="bg-white shadow-sm p-4 sticky top-0 z-50 rounded-b-lg">
+                <div className="container mx-auto flex justify-between items-center">
+                  <a href="#" className="text-2xl font-bold text-blue-600 rounded-md">Lucas Rocha</a> {/* Cor ajustada para azul */}
+                  <div className="space-x-4 flex">
+                    <a href="#inicio" className="text-gray-700 hover:text-blue-600 font-medium px-3 py-2 rounded-md transition duration-300">Início</a> {/* Cor ajustada */}
+                    <a href="#sobre" className="text-gray-700 hover:text-blue-600 font-medium px-3 py-2 rounded-md transition duration-300">Sobre</a> {/* Cor ajustada */}
+                    <a href="#servicos" className="text-gray-700 hover:text-blue-600 font-medium px-3 py-2 rounded-md transition duration-300">Serviços</a> {/* Cor ajustada */}
+                    <a href="#portfolio" className="text-gray-700 hover:text-blue-600 font-medium px-3 py-2 rounded-md transition duration-300">Portfólio</a> {/* Cor ajustada */}
+                    <a href="#contato" className="text-gray-700 hover:text-blue-600 font-medium px-3 py-2 rounded-md transition duration-300">Contato</a> {/* Cor ajustada */}
+                  </div>
+                </div>
+              </nav>
 
-      {/* Seção de Tomos Antigos (Portfólio) */}
-      <section id="portfolio" className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-gray-800 mb-12 flex items-center justify-center">
-            <ScrollText className="mr-3 text-amber-700" size={36} /> Tomos Antigos & Crônicas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Projeto 1: Crônica das Ervas Curativas */}
-            <div className="bg-stone-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-              <img
-                src="https://placehold.co/600x400/8B4513/FFFFFF?text=Tomo+Ancestral+1"
-                alt="Tomo Ancestral: Ervas Curativas"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Crônica das <span className="font-bold">Ervas Curativas</span></h3>
-                <p className="text-gray-600 mb-4">
-                  Um tomo meticulosamente transcrito, detalhando as <span className="font-bold">propriedades e usos ancestrais</span> de diversas ervas.
-                </p>
-                <a href="https://placehold.co/800x600/8B4513/FFFFFF?text=Detalhes+Tomo+1" target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline font-medium">Ver Detalhes &rarr;</a>
-              </div>
-            </div>
-            {/* Projeto 2: Contos dos Espíritos da Floresta */}
-            <div className="bg-stone-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-              <img
-                src="https://placehold.co/600x400/2F4F4F/FFFFFF?text=Ervas+Místicas"
-                alt="Tomo Ancestral: Contos dos Espíritos da Floresta"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Contos dos <span className="font-bold">Espíritos da Floresta</span></h3>
-                <p className="text-gray-600 mb-4">
-                  Uma compilação de lendas e mitos sobre os <span className="font-bold">guardiões invisíveis</span> dos reinos naturais.
-                </p>
-                <a href="https://placehold.co/800x600/2F4F4F/FFFFFF?text=Detalhes+Tomo+2" target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline font-medium">Ver Detalhes &rarr;</a>
-              </div>
-            </div>
-            {/* Projeto 3: O Círculo das Pedras Solares */}
-            <div className="bg-stone-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-              <img
-                src="https://placehold.co/600x400/4CAF50/FFFFFF?text=Clareira+Sagrada"
-                alt="Tomo Ancestral: O Círculo das Pedras Solares"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">O Círculo das <span className="font-bold">Pedras Solares</span></h3>
-                <p className="text-gray-600 mb-4">
-                  Registros detalhados de antigos <span className="font-bold">rituais e locais sagrados</span>, alinhados com os ciclos celestes.
-                </p>
-                <a href="https://placehold.co/800x600/4CAF50/FFFFFF?text=Detalhes+Tomo+3" target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline font-medium">Ver Detalhes &rarr;</a>
-              </div>
-            </div>
-            {/* Projeto 4: Atlas dos Caminhos Místicos */}
-            <div className="bg-stone-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-              <img
-                src="https://placehold.co/600x400/8B4513/FFFFFF?text=Contos+Animados"
-                alt="Tomo Ancestral: Atlas dos Caminhos Místicos"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">Atlas dos <span className="font-bold">Caminhos Místicos</span></h3>
-                <p className="text-gray-600 mb-4">
-                  Um guia ilustrado pelas <span className="font-bold">trilhas energéticas</span> e paisagens encantadas do mundo.
-                </p>
-                <a href="https://placehold.co/800x600/8B4513/FFFFFF?text=Detalhes+Tomo+4" target="_blank" rel="noopener noreferrer" className="text-green-700 hover:underline font-medium">Ver Detalhes &rarr;</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* Seção de Início (Hero) */}
+              <section id="inicio" className="relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-20 md:py-32 flex items-center justify-center min-h-screen-70 rounded-b-lg"> {/* Paleta de cores ajustada para programador */}
+                <div className="container mx-auto text-center px-4">
+                  <div className="mb-8">
+                    {/* Imagem de perfil genérica para programador */}
+                    <img
+                      src="https://placehold.co/160x160/2563EB/FFFFFF?text=LR" // Placeholder para Lucas Rocha
+                      alt="Lucas Rocha"
+                      className="rounded-full w-32 h-32 md:w-40 md:h-40 mx-auto border-4 border-white shadow-lg object-cover"
+                    />
+                  </div>
+                  <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fadeInUp">
+                    Olá, eu sou <span className="text-white">Lucas Rocha</span> {/* Nome do programador */}
+                  </h1>
+                  <p className="text-xl md:text-2xl mb-8 font-light animate-fadeInUp delay-200">
+                    <span className="font-bold">DESENVOLVEDOR DE SOFTWARE</span> | <span className="font-bold">Inovador</span>, <span className="font-bold">Resolutor de Problemas</span> e <span className="font-bold">Apaixonado por Tecnologia</span>
+                  </p>
+                  <a
+                    href="#contato"
+                    className="inline-flex items-center px-8 py-3 bg-white text-blue-600 font-bold rounded-full shadow-lg hover:bg-blue-100 transition duration-300 transform hover:scale-105 animate-bounceIn"
+                  >
+                    Fale Comigo <Mail className="ml-2" size={20} />
+                  </a>
+                </div>
+              </section>
 
-      {/* Seção de Contato */}
-      <section id="contato" className="py-16 md:py-24 bg-stone-100">
-        <div className="container mx-auto px-4 text-center max-w-2xl">
-          <h2 className="text-4xl font-bold text-gray-800 mb-12 flex items-center justify-center">
-            <Mail className="mr-3 text-green-600" size={36} /> Conecte-se com a Guardiã
-          </h2>
-          <div className="bg-white p-8 rounded-lg shadow-lg text-left">
-            <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-              <div className="mb-6">
-                <label htmlFor="nome" className="block text-gray-700 text-sm font-bold mb-2">
-                  Seu Nome
-                </label>
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                  placeholder="Seu nome completo"
-                  required
-                />
-              </div>
-              <div className="mb-6">
-                <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-                  Seu E-mail
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="_replyto"
-                  className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                  placeholder="seu.email@exemplo.com"
-                  required
-                />
-              </div>
-              <div className="mb-6">
-                <label htmlFor="mensagem" className="block text-gray-700 text-sm font-bold mb-2">
-                  Sua Mensagem
-                </label>
-                <textarea
-                  id="mensagem"
-                  name="mensagem"
-                  rows="5"
-                  className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                  placeholder="Descreva sua busca ou sua pergunta..."
-                  required
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105 flex items-center justify-center"
-              >
-                Enviar Mensagem <Mail className="ml-2" size={20} />
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
+              {/* Seção Sobre Mim */}
+              <section id="sobre" className="py-16 md:py-24 bg-white">
+                <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+                  <div className="text-center md:text-left">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-6 flex items-center justify-center md:justify-start">
+                      <User className="mr-3 text-blue-500" size={36} /> Sobre mim.. {/* Cor ajustada */}
+                    </h2>
+                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                      Minha jornada no mundo da programação começou com a curiosidade de entender como a tecnologia por trás de tudo funcionava. Desde então, me apaixonei por <span className="font-bold">transformar ideias complexas em soluções de software elegantes e eficientes</span>. Sou um <span className="font-bold">desenvolvedor autodidata e em constante aprendizado</span>, sempre buscando novas linguagens, frameworks e melhores práticas para aprimorar minhas habilidades.
+                    </p>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      Com experiência em <span className="font-bold">desenvolvimento web (Front-end e Back-end) e mobile</span>, adoro o desafio de construir aplicações que não apenas funcionam, mas que também oferecem uma <span className="font-bold">experiência de usuário intuitiva e agradável</span>. Meu foco principal está em <span className="font-bold">JavaScript, React, Node.js e Python</span>, mas estou sempre aberto a explorar novas tecnologias e a expandir meu conjunto de ferramentas.
+                    </p>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      Acredito que a programação é uma arte de <span className="font-bold">resolver problemas</span>, e cada linha de código é uma oportunidade para <span className="font-bold">criar algo inovador e impactante</span>. Se você busca um desenvolvedor comprometido, criativo e com paixão por entregar resultados de alta qualidade, ficarei feliz em colaborar no seu próximo projeto.
+                    </p>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    {/* Bloco de Destaque para Sobre Mim - Habilidades Chave */}
+                    <div className="bg-blue-100 p-8 rounded-lg shadow-xl w-full max-w-md text-center"> {/* Cor ajustada */}
+                      <Code className="mx-auto text-blue-600 mb-4" size={64} /> {/* Cor ajustada */}
+                      <h3 className="text-2xl font-semibold text-blue-800 mb-3">Minha Essência</h3> {/* Cor ajustada */}
+                      <p className="text-gray-700">
+                        <span className="font-bold">Lógica Afiada, Código Limpo, Inovação Constante.</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-      {/* Rodapé */}
-      <footer className="bg-green-900 text-white py-8 text-center">
-        <div className="container mx-auto px-4">
-          <p>&copy; {new Date().getFullYear()} Biblioteca Druídica. Todos os direitos reservados.</p>
-          <div className="flex justify-center space-x-6 mt-4">
-            {/* Links para "redes" temáticas */}
-            <a href="#" className="text-gray-400 hover:text-white transition duration-300">
-              Círculo dos Anciãos
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white transition duration-300">
-              Ecos da Floresta
-            </a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
+              {/* Seção de Serviços */}
+              <section id="servicos" className="py-16 md:py-24 bg-gray-100">
+                <div className="container mx-auto px-4 text-center">
+                  <h2 className="text-4xl font-bold text-gray-800 mb-12 flex items-center justify-center">
+                    <Briefcase className="mr-3 text-blue-500" size={36} /> Meus Serviços {/* Cor ajustada */}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {/* Cartão de Serviço 1: Desenvolvimento Web Front-end */}
+                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                      <Laptop className="text-blue-500 mb-4 mx-auto" size={48} /> {/* Ícone ajustado */}
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-3">Desenvolvimento Web (Front-end)</h3>
+                      <p className="text-gray-600">
+                        Criação de interfaces de usuário <span className="font-bold">responsivas, intuitivas e otimizadas</span> com React, Vue ou Angular.
+                      </p>
+                    </div>
+                    {/* Cartão de Serviço 2: Desenvolvimento Web Back-end */}
+                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                      <Server className="text-green-500 mb-4 mx-auto" size={48} /> {/* Ícone ajustado para verde */}
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-3">Desenvolvimento Web (Back-end)</h3>
+                      <p className="text-gray-600">
+                        Construção de APIs robustas e escaláveis, bancos de dados e lógica de servidor com <span className="font-bold">Node.js, Python/Django/Flask ou Go</span>.
+                      </p>
+                    </div>
+                    {/* Cartão de Serviço 3: Desenvolvimento Mobile */}
+                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                      <Smartphone className="text-orange-500 mb-4 mx-auto" size={48} /> {/* Ícone ajustado para laranja */}
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-3">Desenvolvimento Mobile</h3>
+                      <p className="text-gray-600">
+                        Criação de aplicativos nativos ou híbridos para iOS e Android com <span className="font-bold">React Native ou Flutter</span>.
+                      </p>
+                    </div>
+                    {/* Cartão de Serviço 4: Consultoria e Otimização */}
+                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
+                      <GitFork className="text-yellow-500 mb-4 mx-auto" size={48} /> {/* Ícone ajustado para amarelo */}
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-3">Consultoria e Otimização de Código</h3>
+                      <p className="text-gray-600">
+                        Análise, refatoração e otimização de código para <span className="font-bold">melhorar performance e manutenibilidade</span>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-export default App;
+              {/* Seção de Portfólio */}
+              <section id="portfolio" className="py-16 md:py-24 bg-white">
+                <div className="container mx-auto px-4 text-center">
+                  <h2 className="text-4xl font-bold text-gray-800 mb-12 flex items-center justify-center">
+                    <Database className="mr-3 text-blue-500" size={36} /> Meus Projetos {/* Cor ajustada e título alterado */}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {/* Projeto 1: E-commerce Responsivo */}
+                    <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+                      <img
+                        src="https://placehold.co/600x300/2563EB/FFFFFF?text=E-commerce+App" // Placeholder
+                        alt="Projeto E-commerce Responsivo"
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">E-commerce Responsivo - <span className="font-bold">React & Node.js</span></h3>
+                        <p className="text-gray-600 mb-4">
+                          Desenvolvimento completo de uma plataforma de e-commerce com carrinho de compras, sistema de autenticação e dashboard de administrador.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Ver Projeto &rarr;</a> {/* Link genérico */}
+                      </div>
+                    </div>
+                    {/* Projeto 2: Aplicativo de Gerenciamento de Tarefas */}
+                    <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+                      <img
+                        src="https://placehold.co/600x300/10B981/FFFFFF?text=To-Do+App" // Placeholder
+                        alt="Projeto Aplicativo de Gerenciamento de Tarefas"
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">App de Tarefas - <span className="font-bold">React Native</span></h3>
+                        <p className="text-gray-600 mb-4">
+                          Aplicativo mobile para gerenciamento pessoal de tarefas, com lembretes, categorização e sincronização em tempo real.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Ver Projeto &rarr;</a> {/* Link genérico */}
+                      </div>
+                    </div>
+                    {/* Projeto 3: Blog Pessoal com CMS */}
+                    <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+                      <img
+                        src="https://placehold.co/600x300/F97316/FFFFFF?text=Blog+CMS" // Placeholder
+                        alt="Projeto Blog Pessoal com CMS"
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">Blog Pessoal com CMS - <span className="font-bold">Python & Django</span></h3>
+                        <p className="text-gray-600 mb-4">
+                          Criação de um sistema de blog robusto, incluindo um painel de administração personalizado para gerenciamento de conteúdo.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Ver Projeto &rarr;</a> {/* Link genérico */}
+                      </div>
+                    </div>
+                    {/* Projeto 4: Ferramenta de Análise de Dados */}
+                    <div className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+                      <img
+                        src="https://placehold.co/600x300/EAB308/FFFFFF?text=Data+Tool" // Placeholder
+                        alt="Projeto Ferramenta de Análise de Dados"
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-2">Ferramenta de Análise de Dados - <span className="font-bold">Python</span></h3>
+                        <p className="text-gray-600 mb-4">
+                          Desenvolvimento de uma ferramenta para visualização e análise de grandes volumes de dados, com gráficos interativos.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Ver Projeto &rarr;</a> {/* Link genérico */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Seção de Contato */}
+              <section id="contato" className="py-16 md:py-24 bg-gray-100">
+                <div className="container mx-auto px-4 text-center max-w-2xl">
+                  <h2 className="text-4xl font-bold text-gray-800 mb-12 flex items-center justify-center">
+                    <Mail className="mr-3 text-blue-500" size={36} /> Fale Comigo {/* Cor ajustada */}
+                  </h2>
+                  <div className="bg-white p-8 rounded-lg shadow-lg text-left">
+                    <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                      <div className="mb-6">
+                        <label htmlFor="nome" className="block text-gray-700 text-sm font-bold mb-2">
+                          Seu Nome
+                        </label>
+                        <input
+                          type="text"
+                          id="nome"
+                          name="nome"
+                          className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 rounded-md" // Cor ajustada
+                          placeholder="Seu nome completo"
+                          required
+                        />
+                      </div>
+                      <div className="mb-6">
+                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
+                          Seu E-mail
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="_replyto" // Nome padrão do Formspree para o remetente
+                          className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 rounded-md" // Cor ajustada
+                          placeholder="seu.email@exemplo.com"
+                          required
+                        />
+                      </div>
+                      <div className="mb-6">
+                        <label htmlFor="mensagem" className="block text-gray-700 text-sm font-bold mb-2">
+                          Sua Mensagem
+                        </label>
+                        <textarea
+                          id="mensagem"
+                          name="mensagem"
+                          rows="5"
+                          className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 rounded-md" // Cor ajustada
+                          placeholder="Descreva seu projeto ou sua pergunta..."
+                          required
+                        ></textarea>
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105 flex items-center justify-center" // Cor ajustada
+                      >
+                        Enviar Mensagem <Mail className="ml-2" size={20} />
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </section>
+
+              {/* Rodapé */}
+              <footer className="bg-gray-800 text-white py-8 text-center rounded-t-lg">
+                <div className="container mx-auto px-4">
+                  <p>&copy; {new Date().getFullYear()} Lucas Rocha. Todos os direitos reservados.</p>
+                  <div className="flex justify-center space-x-6 mt-4">
+                    {/* Links para redes sociais de programador */}
+                    <a href="#" className="text-gray-400 hover:text-white transition duration-300">
+                      LinkedIn
+                    </a>
+                    <a href="#" className="text-gray-400 hover:text-white transition duration-300">
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          );
+        };
+
+        // Renderiza o componente React no DOM
+        const domNode = document.getElementById('root');
+        const root = ReactDOM.createRoot(domNode);
+        root.render(<App />);
+    </script>
+</body>
+</html>
