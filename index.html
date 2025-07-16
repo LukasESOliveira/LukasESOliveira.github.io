@@ -1,399 +1,341 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio Lukas Oliveira</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Importa a fonte Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-// Main App Component
-function App() {
-  const [activeSection, setActiveSection] = useState('home');
-
-  // Function to handle smooth scrolling to sections
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(id);
-    }
-  };
-
-  // Effect to update active section based on scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'contact'];
-      let currentActive = 'home';
-      for (const sectionId of sections) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          // Check if the section is mostly in view
-          if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-            currentActive = sectionId;
-            break;
-          }
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-      setActiveSection(currentActive);
-    };
+        html {
+            scroll-behavior: smooth;
+        }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+        /* Keyframes para o efeito de chuva de código */
+        @keyframes code-fall {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
 
-  return (
-    <div className="min-h-screen bg-gray-50 font-inter text-gray-800 antialiased">
-      {/* Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-4 px-6 md:px-12 flex justify-center">
-        <ul className="flex space-x-6 md:space-x-10">
-          <li>
-            <button
-              onClick={() => scrollToSection('home')}
-              className={`text-lg font-semibold transition-colors duration-300 ${
-                activeSection === 'home' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'
-              }`}
-            >
-              Início
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection('about')}
-              className={`text-lg font-semibold transition-colors duration-300 ${
-                activeSection === 'about' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'
-              }`}
-            >
-              Sobre Mim
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection('experience')}
-              className={`text-lg font-semibold transition-colors duration-300 ${
-                activeSection === 'experience' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'
-              }`}
-            >
-              Experiência
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className={`text-lg font-semibold transition-colors duration-300 ${
-                activeSection === 'contact' ? 'text-blue-600' : 'text-gray-600 hover:text-blue-500'
-              }`}
-            >
-              Contato
-            </button>
-          </li>
+        .code-column span {
+            display: block; /* Cada caractere em uma nova linha */
+            animation: code-fall 8s linear infinite; /* Duração da animação e loop infinito */
+            animation-fill-mode: forwards; /* Mantém o último estado da animação */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 font-inter text-gray-800 antialiased">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-4 px-6 md:px-12 flex justify-center">
+        <ul class="flex space-x-6 md:space-x-10">
+            <li>
+                <button data-section-id="home" class="nav-button text-lg font-semibold transition-colors duration-300 text-blue-600">
+                    Início
+                </button>
+            </li>
+            <li>
+                <button data-section-id="about" class="nav-button text-lg font-semibold transition-colors duration-300 text-gray-600 hover:text-blue-500">
+                    Sobre Mim
+                </button>
+            </li>
+            <li>
+                <button data-section-id="experience" class="nav-button text-lg font-semibold transition-colors duration-300 text-gray-600 hover:text-blue-500">
+                    Experiência
+                </button>
+            </li>
+            <li>
+                <button data-section-id="contact" class="nav-button text-lg font-semibold transition-colors duration-300 text-gray-600 hover:text-blue-500">
+                    Contato
+                </button>
+            </li>
         </ul>
-      </nav>
+    </nav>
 
-      {/* Main Content Area */}
-      <main className="pt-20"> {/* Padding top to account for fixed nav */}
-        <Home scrollToSection={scrollToSection} />
-        <About />
-        <Experience />
-        <Contact />
-      </main>
+    <!-- Main Content Area -->
+    <main class="pt-20"> <!-- Padding top para a navegação fixa -->
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white text-center py-6 mt-12">
-        <p>&copy; {new Date().getFullYear()} Lukas Oliveira. Todos os direitos reservados.</p>
-      </footer>
-    </div>
-  );
-}
-
-// Home Section Component
-function Home({ scrollToSection }) {
-  return (
-    <section
-      id="home"
-      className="relative flex items-center justify-center min-h-[calc(100vh-80px)] bg-gradient-to-br from-blue-500 to-indigo-600 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
-    >
-      {/* Background shapes for visual interest */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white rounded-full mix-blend-overlay animate-blob"></div>
-        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-white rounded-full mix-blend-overlay animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-white rounded-full mix-blend-overlay animate-blob animation-delay-4000"></div>
-      </div>
-
-      <div className="relative z-10 text-center max-w-3xl mx-auto p-6 bg-white bg-opacity-10 rounded-xl shadow-2xl backdrop-blur-sm">
-        <div className="mb-6">
-          {/* Placeholder for a professional photo */}
-          <img
-            src="https://placehold.co/150x150/ADD8E6/000000?text=Lukas"
-            alt="Lukas Oliveira"
-            className="w-36 h-36 rounded-full mx-auto border-4 border-white shadow-lg"
-          />
-        </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
-          Olá, sou Lukas Oliveira
-        </h1>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-6">
-          Profissional Versátil: Auxiliar Administrativo & Suporte de TI
-        </h2>
-        <p className="text-lg sm:text-xl mb-8 leading-relaxed">
-          Com 23 anos, sou um profissional dinâmico e apaixonado por tecnologia, com sólida experiência tanto em rotinas administrativas quanto em suporte técnico de TI. Meu foco é otimizar processos, resolver desafios complexos e garantir a fluidez das operações, sempre buscando soluções eficientes e inovadoras para o ambiente corporativo.
-        </p>
-        <button
-          onClick={() => scrollToSection('about')}
-          className="bg-white text-blue-600 px-8 py-3 rounded-full text-lg font-bold hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg"
+        <!-- Home Section -->
+        <section
+            id="home"
+            class="relative flex items-center justify-center min-h-[calc(100vh-80px)] bg-gray-900 text-white py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
         >
-          Saiba Mais Sobre Mim
-        </button>
-      </div>
-      {/* Keyframe animations for blobs */}
-      <style>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite cubic-bezier(0.6, 0.01, 0.4, 1);
-        }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
-      `}</style>
-    </section>
-  );
-}
-
-// About Section Component
-function About() {
-  return (
-    <section id="about" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white shadow-inner">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Sobre Mim</h2>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-lg leading-relaxed text-gray-700 space-y-6">
-            <p>
-              Com 23 anos e residindo em Sumaré, SP, sou um profissional multifacetado com experiência como{' '}
-              <strong className="text-blue-600">Auxiliar Administrativo</strong> e{' '}
-              <strong className="text-blue-600">Suporte de TI</strong>. Minha jornada profissional me permitiu
-              desenvolver habilidades em organização, atendimento ao cliente, gestão de documentos e,
-              principalmente, a resolução de problemas técnicos complexos.
-            </p>
-            <p>
-              No suporte de TI, atuo com manutenção de hardware e software, configuração de redes, atendimento
-              a usuários e instalação de sistemas, sempre buscando otimizar os processos e garantir a
-              eficiência dos recursos tecnológicos. Sou proativo, focado em resultados e estou sempre em busca
-              de novos conhecimentos para aprimorar minhas competências e contribuir para o sucesso da equipe.
-            </p>
-          </div>
-          <div className="bg-gray-100 p-8 rounded-xl shadow-lg">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Minhas Habilidades:</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <h4 className="font-bold text-gray-800 mb-2">Suporte Técnico:</h4>
-                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                  <li>Manutenção de Hardware e Software</li>
-                  <li>Configuração de Redes (LAN/WAN)</li>
-                  <li>Atendimento e Suporte ao Usuário</li>
-                  <li>Instalação de Sistemas Operacionais (Windows, Linux básico)</li>
-                  <li>Troubleshooting e Diagnóstico de Problemas</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-800 mb-2">Administrativo:</h4>
-                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                  <li>Organização e Arquivamento de Documentos</li>
-                  <li>Atendimento Telefônico e Presencial</li>
-                  <li>Pacote Office (Word, Excel, PowerPoint)</li>
-                  <li>Gestão de Agendas e Compromissos</li>
-                  <li>Rotinas de Escritório e Controle</li>
-                </ul>
-              </div>
+            <!-- Animated Code Rain Background -->
+            <div class="absolute inset-0 z-0 overflow-hidden" id="code-rain-background">
+                <!-- Colunas de código serão injetadas aqui pelo JavaScript -->
             </div>
-            <div className="mt-6">
-              <h4 className="font-bold text-gray-800 mb-2">Habilidades Comportamentais:</h4>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
-                <li>Proatividade e Iniciativa</li>
-                <li>Resolução de Problemas</li>
-                <li>Comunicação Eficaz e Empatia</li>
-                <li>Trabalho em Equipe e Colaboração</li>
-                <li>Orientação a Resultados e Foco</li>
-                <li>Aprendizado Contínuo e Adaptabilidade</li>
-              </ul>
+
+            <!-- Overlay para garantir a legibilidade do texto -->
+            <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+
+            <div class="relative z-10 text-center max-w-3xl mx-auto p-6 bg-white bg-opacity-10 rounded-xl shadow-2xl backdrop-blur-sm">
+                <div class="mb-6">
+                    <!-- Placeholder para uma foto profissional -->
+                    <img
+                        src="https://placehold.co/150x150/ADD8E6/000000?text=Lukas"
+                        alt="Lukas Oliveira"
+                        class="w-36 h-36 rounded-full mx-auto border-4 border-white shadow-lg"
+                    />
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
+                    Olá, sou Lukas Oliveira
+                </h1>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-6">
+                    Profissional Versátil: Auxiliar Administrativo & Suporte de TI
+                </h2>
+                <p class="text-lg sm:text-xl mb-8 leading-relaxed">
+                    Com 23 anos, sou um profissional dinâmico e apaixonado por tecnologia, com sólida experiência tanto em rotinas administrativas quanto em suporte técnico de TI. Meu foco é otimizar processos, resolver desafios complexos e garantir a fluidez das operações, sempre buscando soluções eficientes e inovadoras para o ambiente corporativo.
+                </p>
+                <button
+                    data-section-id="about"
+                    class="scroll-to-button bg-white text-blue-600 px-8 py-3 rounded-full text-lg font-bold hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg"
+                >
+                    Saiba Mais Sobre Mim
+                </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+        </section>
 
-// Experience Section Component
-function Experience() {
-  const experiences = [
-    {
-      title: "Auxiliar Administrativo / Suporte de TI / Almoxarife",
-      company: "STR Instalações",
-      period: "Novembro/2023 - Atualmente",
-      description: [
-        "Atendimento e suporte técnico de primeiro nível a usuários internos e externos, resolvendo incidentes de hardware (desktops, notebooks, impressoras) e software (sistemas operacionais, aplicativos de escritório).",
-        "Realização de manutenção preventiva e corretiva em equipamentos de informática, garantindo a disponibilidade e o bom funcionamento da infraestrutura.",
-        "Instalação e configuração de sistemas operacionais (Windows 10/11) e softwares diversos, além de suporte na gestão de licenças.",
-        "Organização e arquivamento de documentos físicos e digitais, otimizando processos de busca e recuperação de informações.",
-        "Suporte à equipe administrativa em rotinas de escritório, como agendamento de reuniões, controle de estoque de materiais e elaboração de relatórios básicos.",
-        "Suporte à equipe de campo e etc"
-      ]
-    },
-    {
-      title: "Estagiário de Suporte Técnico",
-      company: "Julio Carnes",
-      period: "Maio/2020 - 03/2023",
-      description: [
-        "Auxílio na instalação e configuração de estações de trabalho e periféricos para novos colaboradores.",
-        "Suporte na identificação e resolução de problemas básicos de conectividade de rede.",
-        "Participação na documentação de procedimentos de TI e na criação de base de conhecimento para usuários.",
-        "Apoio na gestão de ativos de TI e inventário de equipamentos.",
-        "Responsavel pela Integração de ERP/PDV"
-      ]
-    },
-    // Add more experiences here following the same structure
-  ];
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white shadow-inner">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Sobre Mim</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-lg leading-relaxed text-gray-700 space-y-6">
+                        <p>
+                            Com 23 anos e residindo em Sumaré, SP, sou um profissional multifacetado com experiência como
+                            <strong class="text-blue-600">Auxiliar Administrativo</strong> e
+                            <strong class="text-blue-600">Suporte de TI</strong>. Minha jornada profissional me permitiu
+                            desenvolver habilidades em organização, atendimento ao cliente, gestão de documentos e,
+                            principalmente, a resolução de problemas técnicos complexos.
+                        </p>
+                        <p>
+                            No suporte de TI, atuo com manutenção de hardware e software, configuração de redes, atendimento
+                            a usuários e instalação de sistemas, sempre buscando otimizar os processos e garantir a
+                            eficiência dos recursos tecnológicos. Sou proativo, focado em resultados e estou sempre em busca
+                            de novos conhecimentos para aprimorar minhas competências e contribuir para o sucesso da equipe.
+                        </p>
+                    </div>
+                    <div class="bg-gray-100 p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-semibold text-gray-900 mb-6">Minhas Habilidades:</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">Suporte Técnico:</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Manutenção de Hardware e Software</li>
+                                    <li>Configuração de Redes (LAN/WAN)</li>
+                                    <li>Atendimento e Suporte ao Usuário</li>
+                                    <li>Instalação de Sistemas Operacionais (Windows, Linux básico)</li>
+                                    <li>Troubleshooting e Diagnóstico de Problemas</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-2">Administrativo:</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li>Organização e Arquivamento de Documentos</li>
+                                    <li>Atendimento Telefônico e Presencial</li>
+                                    <li>Pacote Office (Word, Excel, PowerPoint)</li>
+                                    <li>Gestão de Agendas e Compromissos</li>
+                                    <li>Rotinas de Escritório e Controle</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <h4 class="font-bold text-gray-800 mb-2">Habilidades Comportamentais:</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>Proatividade e Iniciativa</li>
+                                <li>Resolução de Problemas</li>
+                                <li>Comunicação Eficaz e Empatia</li>
+                                <li>Trabalho em Equipe e Colaboração</li>
+                                <li>Orientação a Resultados e Foco</li>
+                                <li>Aprendizado Contínuo e Adaptabilidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  const projects = [
-    {
-      title: "Consultoria e Suporte de Hardware e Software (Atendimento Doméstico)",
-      description: "Ofereço serviços de consultoria e suporte técnico para usuários domésticos, auxiliando na resolução de problemas de hardware e software, otimização de sistemas e configuração de dispositivos para garantir o bom funcionamento de seus equipamentos.",
-      technologies: ["Diagnóstico de Hardware", "Suporte de Software", "Otimização de Sistemas", "Atendimento ao Cliente"]
-    },
-    {
-      title: "Montagem e Configuração de Computadores Personalizados",
-      description: "Realizo a montagem de computadores sob medida, desde a seleção de componentes compatíveis até a instalação e configuração completa de sistemas operacionais e drivers. Ideal para usuários que buscam máquinas com desempenho específico para jogos, trabalho ou estudo.",
-      technologies: ["Montagem de PC", "Seleção de Componentes", "Instalação de Sistemas Operacionais", "Otimização de Desempenho"]
-    },
-    {
-      title: "Manutenção e Reparo de Celulares e Tablets",
-      description: "Serviços de manutenção e reparo para dispositivos móveis, incluindo diagnóstico de problemas, substituição de componentes (telas, baterias, conectores) e solução de falhas de software, visando restaurar a funcionalidade completa de celulares e tablets.",
-      technologies: ["Reparo de Hardware Móvel", "Diagnóstico de Software Móvel", "Substituição de Componentes", "Smartphones", "Tablets"]
-    },
-    {
-      title: "Otimização de Rede Doméstica",
-      description: "Projeto pessoal focado em otimizar a rede Wi-Fi doméstica, configurando roteadores, repetidores e canais para maximizar a velocidade e a cobertura. Incluiu a implementação de um servidor de arquivos básico (NAS) para backup e compartilhamento de dados entre dispositivos.",
-      technologies: ["Redes Wi-Fi", "Configuração de Roteadores", "NAS (Network Attached Storage)", "Linux (básico)"]
-    },
-    {
-      title: "Montagem e Configuração de PC Gamer",
-      description: "Montagem completa de um computador gamer do zero, incluindo a seleção de componentes, instalação física e configuração de drivers e sistema operacional. O projeto envolveu pesquisa de compatibilidade de hardware e otimização de desempenho para jogos e tarefas exigentes.",
-      technologies: ["Hardware", "Montagem de PC", "Drivers", "Otimização de Desempenho"]
-    },
-    // Add more projects here
-  ];
+        <!-- Experience Section -->
+        <section id="experience" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-100">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Experiência</h2>
 
-  return (
-    <section id="experience" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gray-100">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Experiência & Projetos</h2>
+                <!-- Professional Experience -->
+                <div class="mb-16">
+                    <h3 class="text-3xl font-semibold text-gray-800 mb-8 text-center md:text-left">Minha Experiência Profissional</h3>
+                    <div class="space-y-10" id="experience-list">
+                        <!-- Experiências serão injetadas aqui pelo JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        {/* Professional Experience */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-semibold text-gray-800 mb-8 text-center md:text-left">Minha Experiência Profissional</h3>
-          <div className="space-y-10">
-            {experiences.map((exp, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-blue-500">
-                <h4 className="text-2xl font-bold text-gray-900 mb-2">{exp.title}</h4>
-                <p className="text-blue-600 text-lg font-medium mb-2">{exp.company}</p>
-                <p className="text-gray-500 text-md mb-4">{exp.period}</p>
-                <ul className="list-disc list-outside ml-5 text-gray-700 space-y-2">
-                  {exp.description.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">Contato</h2>
 
-        {/* Personal Projects */}
-        <div>
-          <h3 className="text-3xl font-semibold text-gray-800 mb-8 text-center md:text-left">Projetos Pessoais & Serviços</h3> {/* Updated title */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((proj, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-indigo-500">
-                <h4 className="text-2xl font-bold text-gray-900 mb-3">{proj.title}</h4>
-                <p className="text-gray-700 mb-4 leading-relaxed">{proj.description}</p>
-                {proj.technologies && (
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {proj.technologies.map((tech, i) => (
-                      <span key={i} className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+                <div class="mt-10 text-center text-gray-700">
+                    <h3 class="text-2xl font-semibold mb-4">Me Encontre em:</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a
+                            href="https://www.linkedin.com/in/lukas-espirito-santo-oliveira-504933178/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-blue-600 hover:text-blue-800 transition-colors duration-300 text-lg font-medium"
+                        >
+                            LinkedIn
+                        </a>
+                        <a
+                            href="mailto:seu.email@exemplo.com"
+                            class="text-blue-600 hover:text-blue-800 transition-colors duration-300 text-lg font-medium"
+                        >
+                            Email
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-// Contact Section Component
-function Contact() {
-  // Removed formData, setFormData, handleChange, handleSubmit, and status state as they are no longer needed for the form.
+    </main>
 
-  return (
-    <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Contato</h2> {/* Changed title to just "Contato" */}
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
+        <p>&copy; <span id="current-year"></span> Lukas Oliveira. Todos os direitos reservados.</p>
+    </footer>
 
-        {/* Removed the entire form block */}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Define os dados das experiências profissionais
+            const experiences = [
+                {
+                    title: "Auxiliar Administrativo / Suporte de TI / Almoxarife",
+                    company: "STR Instalações",
+                    period: "Novembro/2023 - Atualmente",
+                    description: [
+                        "Atendimento e suporte técnico de primeiro nível a usuários internos e externos, resolvendo incidentes de hardware (desktops, notebooks, impressoras) e software (sistemas operacionais, aplicativos de escritório).",
+                        "Realização de manutenção preventiva e corretiva em equipamentos de informática, garantindo a disponibilidade e o bom funcionamento da infraestrutura.",
+                        "Instalação e configuração de sistemas operacionais (Windows 10/11) e softwares diversos, além de suporte na gestão de licenças.",
+                        "Organização e arquivamento de documentos físicos e digitais, otimizando processos de busca e recuperação de informações.",
+                        "Suporte à equipe administrativa em rotinas de escritório, como agendamento de reuniões, controle de estoque de materiais e elaboração de relatórios básicos.",
+                        "Suporte à equipe de campo e etc"
+                    ]
+                },
+                {
+                    title: "Estagiário de Suporte Técnico",
+                    company: "Julio Carnes",
+                    period: "Maio/2020 - 03/2023",
+                    description: [
+                        "Auxílio na instalação e configuração de estações de trabalho e periféricos para novos colaboradores.",
+                        "Suporte na identificação e resolução de problemas básicos de conectividade de rede.",
+                        "Participação na documentação de procedimentos de TI e na criação de base de conhecimento para usuários.",
+                        "Apoio na gestão de ativos de TI e inventário de equipamentos.",
+                        "Responsavel pela Integração de ERP/PDV"
+                    ]
+                },
+            ];
 
-        <div className="mt-10 text-center text-gray-700">
-          <h3 className="text-2xl font-semibold mb-4">Me Encontre em:</h3>
-          <div className="flex justify-center space-x-6">
-            <a
-              href="https://www.linkedin.com/in/lukas-espirito-santo-oliveira-504933178/" // Updated with Lukas's LinkedIn URL
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 transition-colors duration-300 text-lg font-medium"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="mailto:seu.email@exemplo.com" // Replace with your email address
-              className="text-blue-600 hover:text-blue-800 transition-colors duration-300 text-lg font-medium"
-            >
-              Email
-            </a>
-            {/* Add more links if you have GitHub, personal website, etc. */}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+            // Renderiza as experiências profissionais
+            const experienceList = document.getElementById('experience-list');
+            if (experienceList) {
+                experiences.forEach(exp => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-blue-500';
+                    div.innerHTML = `
+                        <h4 class="text-2xl font-bold text-gray-900 mb-2">${exp.title}</h4>
+                        <p class="text-blue-600 text-lg font-medium mb-2">${exp.company}</p>
+                        <p class="text-gray-500 text-md mb-4">${exp.period}</p>
+                        <ul class="list-disc list-outside ml-5 text-gray-700 space-y-2">
+                            ${exp.description.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    `;
+                    experienceList.appendChild(div);
+                });
+            }
 
-// Basic CSS for font and body (Tailwind handles most of it)
-// This would typically be in an index.css file in a real React project
-const IndexCss = () => (
-  <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+            // Lógica para rolagem suave da navegação
+            const navButtons = document.querySelectorAll('.nav-button');
+            const scrollToButtons = document.querySelectorAll('.scroll-to-button');
+            const allScrollButtons = [...navButtons, ...scrollToButtons];
 
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    /* Simple utility for animation delay */
-    .animation-delay-2000 { animation-delay: 2s; }
-    .animation-delay-4000 { animation-delay: 4s; }
-  `}</style>
-);
+            allScrollButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const sectionId = event.target.dataset.sectionId;
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
 
-// Export the main App component as default
-export default function PortfolioApp() {
-  return (
-    <>
-      <IndexCss />
-      <App />
-    </>
-  );
-}
+            // Lógica para destacar o botão de navegação ativo
+            const sections = document.querySelectorAll('main section');
+            const highlightActiveNavLink = () => {
+                let currentActiveSectionId = 'home';
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                        currentActiveSectionId = section.id;
+                    }
+                });
+
+                navButtons.forEach(button => {
+                    if (button.dataset.sectionId === currentActiveSectionId) {
+                        button.classList.add('text-blue-600');
+                        button.classList.remove('text-gray-600', 'hover:text-blue-500');
+                    } else {
+                        button.classList.remove('text-blue-600');
+                        button.classList.add('text-gray-600', 'hover:text-blue-500');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', highlightActiveNavLink);
+            highlightActiveNavLink(); // Chama na carga inicial para definir o estado correto
+
+            // Lógica para a chuva de código animada
+            const codeRainBackground = document.getElementById('code-rain-background');
+            const generateCodeCharacters = () => {
+                const chars = '0123456789ABCDEF';
+                let code = '';
+                for (let i = 0; i < 100; i++) {
+                    code += chars[Math.floor(Math.random() * chars.length)];
+                }
+                return code;
+            };
+
+            if (codeRainBackground) {
+                for (let i = 0; i < 50; i++) { // Cria 50 colunas de código
+                    const column = document.createElement('div');
+                    column.className = 'code-column absolute top-0 left-0 text-green-500 opacity-70 whitespace-pre';
+                    column.style.left = `${Math.random() * 100}vw`;
+                    column.style.animationDelay = `${Math.random() * 5}s`;
+                    column.style.fontSize = `${Math.random() * 10 + 10}px`;
+
+                    const characters = generateCodeCharacters().split('');
+                    characters.forEach((char, charIndex) => {
+                        const span = document.createElement('span');
+                        span.textContent = char;
+                        span.style.animationDelay = `${charIndex * 0.1}s`;
+                        column.appendChild(span);
+                    });
+                    codeRainBackground.appendChild(column);
+                }
+            }
+
+            // Define o ano atual no rodapé
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
